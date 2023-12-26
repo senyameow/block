@@ -1,6 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, HttpException } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiOkResponse, ApiProperty } from '@nestjs/swagger';
+import { PrismaClient } from '@prisma/client';
+
+const db = new PrismaClient()
 
 class ForSwagger {
   @ApiProperty()
@@ -15,7 +18,8 @@ export class AppController {
   @ApiOkResponse({
     type: ForSwagger
   })
-  getHello(): ForSwagger {
-    return { message: this.appService.getHello() }
+  async getHello(): Promise<ForSwagger> {
+    const user = await db.user.findFirst({})
+    return { message: user?.email || 'not found' }
   }
 }
