@@ -6,8 +6,8 @@ export class UserService {
 
     constructor(private db: DbService) { }
 
-    findByEmail(email: string) {
-        this.db.user.findUnique({
+    async findByEmail(email: string) {
+        return await this.db.user.findUnique({
             where: {
                 email
             }
