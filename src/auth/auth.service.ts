@@ -1,10 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { PasswordService } from './password.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-    constructor(private userService: UserService, private passwordService: PasswordService) { }
+    constructor(private userService: UserService, private passwordService: PasswordService, private jwtService: JwtService) { }
 
     async signUp(email: string, password: string) {
         const user = await this.userService.findByEmail(email)
@@ -22,6 +23,11 @@ export class AuthService {
         // to do that we need to install:
         // 1. @nestjs/jwt
         // 2. cookie-parser (and types)
+
+        const token = await this.jwtService.signAsync({
+            id: newUser.id,
+            email: newUser.email
+        })
     }
 
     signIn(email: string, password: string) {
