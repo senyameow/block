@@ -14,6 +14,14 @@ export class AuthService {
         const hash = this.passwordService.createHash(password, salt)
 
         const newUser = await this.userService.create(email, hash, salt)
+
+        // now we can create JWT token based on this user
+        // then we will pass JWT to cookies 
+        // and with JWT we're gonna login user
+
+        // to do that we need to install:
+        // 1. @nestjs/jwt
+        // 2. cookie-parser (and types)
     }
 
     signIn(email: string, password: string) {
