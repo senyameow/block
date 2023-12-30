@@ -28,6 +28,7 @@ export class AuthService {
             id: newUser.id,
             email: newUser.email
         })
+        return { token, }
     }
 
     signIn(email: string, password: string) {

@@ -10,8 +10,8 @@ export class AuthController {
 
     @Post('sign-up')
     @ApiCreatedResponse()
-    signUp(@Body() body: SignUpBodyDto) {
-        return this.authService.signUp(body.email, body.password)
+    async signUp(@Body() body: SignUpBodyDto) {
+        const { token } = await this.authService.signUp(body.email, body.password)
     }
 
     @Post('sign-in')
