@@ -30,7 +30,8 @@ export class AuthController {
     @ApiOkResponse()
     @HttpCode(HttpStatus.OK)
     @UseGuards(AuthGuard)
-    signOut() {
+    signOut(@Res({ passthrough: true }) res: Response) {
+        this.cookieService.removeToken(res)
     }
 
     @Get('session')
