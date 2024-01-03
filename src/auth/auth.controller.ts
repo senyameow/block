@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { CookieService } from './cookie.service';
 import { Response } from 'express'
 import { AuthGuard } from './auth.guard';
+import { SessionInfo } from './session-info.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -39,7 +40,7 @@ export class AuthController {
         type: GetSessionInfoDto
     })
     @UseGuards(AuthGuard)
-    getSession() {
-        return null
+    getSession(@SessionInfo() session: GetSessionInfoDto) {
+        return session
     }
 }
