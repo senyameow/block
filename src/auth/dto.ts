@@ -24,11 +24,13 @@ export class SignInBodyDto {
     @ApiProperty({
         example: 'senya@mail.ru'
     })
+    @IsEmail()
     email: string
 
     @ApiProperty({
         example: '228'
     })
+    @IsNotEmpty()
     password: string
 
 }

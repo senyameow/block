@@ -10,9 +10,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// тут хэш, пароль, емэйл ... 
 model User {
   id    Int    @id @default(autoincrement())
   email String @unique
   hash  String
   salt  String
+
+  Account Account?
 }
+
+// а тут более прикладная информация типо включена ли блокировка и т.д
+model Account {
+  id                Int     @id @default(autoincrement())
+  isBlockingEnabled Boolean
+
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id])
+}
+
+// дефолтный 1 to 1
